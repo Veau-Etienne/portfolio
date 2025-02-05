@@ -16,21 +16,84 @@
             <li><a href="projets.html">Projets</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
+        <button class="hamburger">☰</button>
     </nav>
 
-    <div class="container">
+
+
+    <div class="cursus">
+        <h2>Parcours Professionnel</h2>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>2023 (Avril) - 2024 (Août)</h3>
+                <h4>Jeld-Wen Fenêtres et Portes , Ussel (19)</h4>
+                <br>
+                <p><b>Agent de fabrication (3x8) :</b>Montage de portes et réalisation de petites menuiseries.</p>
+
+
+                <p><b>Aide-menuisier :</b>Travail en longs déplacements de 4 semaines, a la cité administrative de
+                    Toulouse.</p>
+
+
+                <p><b>Agent de maintenance industriel :</b>Entretien de chaudières industrielles et de machines de
+                    production telles que déligneuses, presses, emballeuses, et empileuses.</p>
+
+
+                <p><b>Conducteur de ligne :</b>Anticiper et faire preuve d'autonomie pour optimiser les délais et
+                    atteindre les objectifs de productions.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Juin - Juillet 2022</h3>
+                <h4> C.TAZE , Bort Les Orgues (19)</h4>
+                <br>
+                <p><b>Agent électricien:</b><br>Installation et maintenance de matériels électriques.
+                    <br>Participation à des projets d’éclairage extérieur et intérieurs dans des zones industrielles.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Décembre 2021, 2022 & Juillet-Août 2022 </h3>
+                <h4> E.Leclerc Ussel (19)</h4>
+                <br>
+                <p><b>Employé de grandes surfaces:</b><br>Gestion des rayons alimentaires, réassort quotidien et
+                    contrôle
+                    des stocks.
+                    <br>Accueil et conseil client pour les demandes spécifiques.
+                    <br>Caisier.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>2018-2019</h3>
+                <h4> McDonald's Ussel (19)</h4>
+                <br>
+                <p><b>Équipier :</b><br>Gestion des commandes et interaction avec la clientèle.
+                    <br>Formation de nouveaux employés sur les procédures internes.
+                    <br>Sensibilisation a l’importance de l’hygiène dans le milieu de la restauration.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="cursus">
         <h2>Parcours Scolaire</h2>
 
         <div class="timeline">
             <div class="timeline-item">
                 <h3>2024 - Présent</h3>
-                <h4>BUT Informatique - IUT d'Aubière</h4>
-                <p>Développement web, bases de données, programmation système</p>
+                <h4><b>BUT Informatique - IUT d'Aubière</b></h4><br>
+                <p>Initiation au développement informatique,sensibilisation a la bonne gestion des ressources mémoires
+                    et a l'importance de la vitesse d'execution des programmes.</p>
+                <p>Mon objectif personnel au sein de cette formation est d'acquérir du savoir-faire et des bonnes
+                    pratiques de programmations afin de devenir un excellent développeur.</p>
             </div>
 
             <div class="timeline-item">
                 <h3>2020-2023</h3>
-                <h4>Licence Génie Mécanique et Aéronautique</h4>
+                <h4><b>Licence Génie Mécanique et Aéronautique</b></h4>
                 <p><em>Université Paul Sabatier - Toulouse (31)</em></p>
                 <p><em>Programmation Python, conception mécanique (CATIA V5 , SINUTRAIN)</em></p>
                 <br>
@@ -45,15 +108,33 @@
 
             <div class="timeline-item">
                 <h3>2020</h3>
-                <h4>Baccalauréat Scientifique</h4>
+                <h4><b>Baccalauréat Scientifique</b></h4>
                 <p>Spécialité Physique-Chimie</p>
                 <p>Lycée Bernart de Ventadour - Ussel (19)</p>
                 <br>
-                <p>Cette formation m’a permis d’acquérir des bases solides en sciences, en mathématiques et en logique.
+                <p>Cette formation m’a permis d’acquérir des bases solides en sciences, en mathématiques et en
+                    logique.
                 </p>
             </div>
         </div>
     </div>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav ul');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
 </body>
 
 </html>

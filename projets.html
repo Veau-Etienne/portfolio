@@ -16,6 +16,7 @@
             <li><a href="projets.html">Projets</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
+        <button class="hamburger">☰</button>
     </nav>
 
     <div class="container">
@@ -43,6 +44,23 @@
             </div>
         </div>
     </div>
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav ul');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
 </body>
 
 </html>

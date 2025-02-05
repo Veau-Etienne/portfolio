@@ -43,32 +43,36 @@ nav a:hover {
 /* Conteneur principal */
 .container {
     max-width: 1200px;
-    margin: 6rem auto 2rem;
-    padding: 0 1.5rem;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
 /* Cartes */
 .card {
     background-color: #2d2d2d;
     border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
 }
 
 /* Grilles */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    max-width: 800px;
+    grid-template-columns: 1fr;
 }
 
 /* Qualifications */
 .qualite {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background-color: #333;
+    margin: 1rem 0;
+    padding: 2rem;
+    background-color: #484747;
     border-radius: 5px;
+
 }
 
 /* Timeline */
@@ -116,23 +120,153 @@ textarea {
     text-decoration: none;
 }
 
-/* Responsive */
+
+
+/* Page Contact */
+.contact-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    /* Ajuste la hauteur selon la navbar */
+}
+
+.cv-preview {
+    text-align: center;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.cv-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border: 1px solid #333;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    background-color: #4d5053;
+    transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #323334;
+}
+
 @media (max-width: 768px) {
-    body {
-        margin-bottom: 5%;
+    .cv-preview {
+        padding: 1rem;
+    }
+
+    .cv-image {
+        max-width: 100%;
+    }
+
+    .download-btn {
+        width: 100%;
+    }
+}
+
+
+/* Menu Hamburger */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: #e6e6e6;
+    font-size: 2rem;
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: -0.5rem;
+}
+
+.hamburger:hover {
+    color: #8a8e91;
+}
+
+
+.cursus {
+    max-width: 1300px;
+    width: 90%;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+
+/* Effet machine à écrire */
+.typewriter {
+    position: relative;
+    display: inline-block;
+}
+
+.typewriter-cursor {
+    position: absolute;
+    right: -8px;
+    width: 3px;
+    height: 80%;
+    background-color: #f0f2f4;
+    animation: blink 1s infinite;
+}
+
+b {
+    color: #989494;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
     }
 
     nav ul {
+        position: fixed;
+        top: 3.5rem;
+        left: 0;
+        right: 0;
+        background-color: #2d2d2d;
         flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
+        gap: 0;
+        padding: 1rem 0;
+        display: none;
     }
 
-    .grid-container {
-        grid-template-columns: 1fr;
+    nav ul.active {
+        display: flex;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li a {
+        padding: 1rem;
+        display: block;
     }
 
     .container {
-        margin-top: 8rem;
+        width: 95%;
+        padding: 0 1rem;
+        margin: 6rem auto 2rem;
     }
 }

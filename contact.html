@@ -16,19 +16,34 @@
             <li><a href="projets.html">Projets</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
+        <button class="hamburger">☰</button>
     </nav>
 
-    <div class="container">
-        <div class="contact-content">
-            <section class="card cv">
-                <h2>Télécharger mon CV</h2>
-                <a href="cv_etienne_veau.pdf" class="btn" target="_blank">Télécharger</a>
-            </section>
-
-
-            </section>
-        </div>
+    <div class="container contact-container">
+        <section class="cv-preview">
+            <img src="CV-Veau_Etienne-Alternance.png" alt="Aperçu CV Etienne Veau" class="cv-image">
+            <a href="CV-Veau_Etienne-Alternance.pdf" class="btn download-btn" download>
+                Télécharger mon CV
+            </a>
+        </section>
     </div>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav ul');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
+        });
+
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
 </body>
 
 </html>
