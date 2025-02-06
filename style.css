@@ -1,4 +1,3 @@
-/* Reset et base */
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +11,6 @@ body {
     color: #e6e6e6;
 }
 
-/* Navigation */
 nav {
     background-color: #2d2d2d;
     padding: 1rem;
@@ -40,16 +38,14 @@ nav a:hover {
     color: #7e7e7e;
 }
 
-/* Conteneur principal */
 .container {
-    max-width: 1200px;
+    max-width: 1000px;
     width: 100%;
     margin: 2rem auto;
     padding: 2rem;
     box-sizing: border-box;
 }
 
-/* Cartes */
 .card {
     background-color: #2d2d2d;
     border-radius: 8px;
@@ -59,14 +55,13 @@ nav a:hover {
 
 }
 
-/* Grilles */
+
 .grid-container {
     display: grid;
-    max-width: 800px;
+    max-width: 1800px;
     grid-template-columns: 1fr;
 }
 
-/* Qualifications */
 .qualite {
     margin: 1rem 0;
     padding: 2rem;
@@ -75,7 +70,7 @@ nav a:hover {
 
 }
 
-/* Timeline */
+
 .timeline-item {
     padding: 1.5rem;
     border-left: 3px solid #8d9093;
@@ -94,10 +89,6 @@ nav a:hover {
     border-radius: 50%;
 }
 
-/* Formulaire */
-.form-group {
-    margin-bottom: 1rem;
-}
 
 input,
 textarea {
@@ -122,13 +113,13 @@ textarea {
 
 
 
-/* Page Contact */
+
 .contact-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 100px);
-    /* Ajuste la hauteur selon la navbar */
+
 }
 
 .cv-preview {
@@ -174,7 +165,7 @@ textarea {
 }
 
 
-/* Menu Hamburger */
+
 .hamburger {
     display: none;
     background: none;
@@ -202,20 +193,7 @@ textarea {
 }
 
 
-/* Effet machine à écrire */
-.typewriter {
-    position: relative;
-    display: inline-block;
-}
 
-.typewriter-cursor {
-    position: absolute;
-    right: -8px;
-    width: 3px;
-    height: 80%;
-    background-color: #f0f2f4;
-    animation: blink 1s infinite;
-}
 
 b {
     color: #989494;
@@ -240,7 +218,7 @@ b {
 
     nav ul {
         position: fixed;
-        top: 3.5rem;
+        top: 1rem;
         left: 0;
         right: 0;
         background-color: #2d2d2d;

@@ -127,7 +127,6 @@
             hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
         });
 
-        // Fermer le menu quand on clique sur un lien
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');

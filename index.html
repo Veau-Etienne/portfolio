@@ -23,12 +23,10 @@
         <header>
             <h1 class="typewriter">
                 <span id="name"></span>
-                <span class="typewriter-cursor"></span>
             </h1>
             <br>
             <h2 class="typewriter">
                 <span id="title"></span>
-                <span class="typewriter-cursor"></span>
             </h2>
         </header>
 
@@ -40,13 +38,13 @@
 
                         Je suis Etienne Veau étudiant en 1er année du B.U.T informatique au sein de L’IUT d’Aubière.
 
-                        Je suis capable de coder en utilisant les langages de programmations :
-                        C & C++ , HTML, CSS, PHP, Python , Shell ( sh / Bash )
-                        De créer des bases de données en SQL et d’utiliser le terminal et ses commandes sous Linux
+                        Je suis capable de coder en utilisant les langages de programmation :
+                        C & C++ , HTML, CSS, PHP, Python , Shell ( sh / Bash ), de créer des bases de données en SQL et
+                        d’utiliser le terminal et ses commandes sous Linux.
 
                         Je suis quelqu’un de minutieux, proactif, curieux et discret.
 
-                        Je suis actuellement a la recherche d’une alternance dans une entreprise qui pourra m’en
+                        Je suis actuellement à la recherche d’une alternance dans une entreprise qui pourra m’en
                         apprendre
                         davantage sur la programmation et sur le monde du travail en informatique.
 
@@ -58,7 +56,7 @@
             <section class="card">
                 <h3>Mes Qualités :</h3>
                 <div class="qualite">
-                    <h4>Minutieux</h4>
+                    <h4><b>Minutieux</b></h4>
                     <p>Lors de mon expérience professionnelle en tant qu’agent de maintenance industriel, j’ai été
                         chargé du montage, du démontage et de l’entretien de chaînes industrielles de plus de 20 mètres.
                         Ces équipements étaient essentiels au fonctionnement d’une usine employant plus de 300
@@ -69,7 +67,7 @@
                     </p>
                 </div>
                 <div class="qualite">
-                    <h4>Proactif</h4>
+                    <h4><b>Proactif</b></h4>
                     <p>Lors de mon expérience en tant qu’aide-menuisier, j’ai travaillé sur un chantier d’envergure à la
                         Cité Administrative de Toulouse. Dans ce contexte, j’ai été amené à collaborer avec un collègue
                         menuisier atteint de surdité. Face à cette situation, j’ai assumé le rôle de représentant
@@ -81,7 +79,7 @@
                     </p>
                 </div>
                 <div class="qualite">
-                    <h4>Curieux</h4>
+                    <h4><b>Curieux</b></h4>
                     <p>Ma curiosité me pousse à aller au-delà des attentes, que ce soit dans mon travail ou mes
                         apprentissages. Je m’efforce de toujours approfondir mes connaissances, notamment en recherchant
                         des informations et du savoir faire complémentaires au cours de l’I.U.T afin d’y être plus
@@ -93,7 +91,7 @@
                     </p>
                 </div>
                 <div class="qualite">
-                    <h4>Discret</h4>
+                    <h4><b>Discret</b></h4>
                     <p>Je suis une personne discrète, préférant me concentrer sur mon travail et mon entourage proche.
                         Une qualité qui tend à se perdre de nos jours avec l’avènement du partage sur les réseaux
                         sociaux, comportement dont je préfère me tenir éloigné. Ma nature discrète et réservé se reflète
@@ -103,6 +101,48 @@
                         respect mutuel.
                     </p>
                 </div>
+            </section>
+
+            <section class="card">
+                <h3>Compétences :</h3>
+                <div class="qualite">
+
+
+                    <p><b>HTML & CSS & PHP :</b><br>
+                        Création de pages web structurées et esthétiques, respectant les standards du web.
+                        Gestion des interactions entre l’utilisateur et le site</p>
+
+                    <p><b>C & C++ :</b><br>
+                        Programmation orientée objet, développement d'algorithmes et gestion fine de la mémoire.</p>
+
+                    <p><b>Python :</b><br>
+                        Utilisations des bibliothèques Numpy et Matplotlib pour l’élaboration de représentations
+                        graphiques
+                        mathématiques diverses</p>
+
+                    <p><b>SQL :</b><br>
+                        Conception et gestion de bases de données relationnelles, écriture de requêtes complexes pour
+                        extraire et manipuler les données.</p>
+
+
+                    <p><b>Shell (sh/Bash) :</b><br>
+                        Utilisation avancée du terminal pour automatiser des processus et gérer des systèmes. Maîtrise
+                        des commandes essentielles pour la navigation, la configuration et l'administration des systèmes
+                        Linux.</p>
+
+
+                    <p><b>Compréhension des besoins clients :</b><br>
+                        capacité à recueillir les besoins des clients de manière précise et détaillée. Grâce à une
+                        écoute active. Je m'assure de bien comprendre leurs attentes, leurs
+                        enjeux et leurs objectifs spécifiques.
+
+                        Je mets également un point d'honneur à vulgariser les informations complexes pour les rendre
+                        accessibles à tous. Cette capacité à transformer des concepts techniques en
+                        termes clairs et compréhensibles garantit une collaboration fluide et une prise de décision
+                        éclairée.</p>
+
+                </div>
+
             </section>
         </div>
     </div>
@@ -116,7 +156,6 @@
             hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
         });
 
-        // Fermer le menu quand on clique sur un lien
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');

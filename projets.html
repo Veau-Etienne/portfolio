@@ -24,23 +24,7 @@
 
         <div class="projets-grid">
             <div class="card projet">
-                <h3>Gestion des stages (C)</h3>
-                <p>Application console pour la gestion des stages</p>
-                <ul>
-                    <li>Manipulation de fichiers</li>
-                    <li>Structures de données complexes</li>
-                    <li>Note : 10.5/20</li>
-                </ul>
-            </div>
-
-            <div class="card projet">
-                <h3>Portfolio (Web)</h3>
-                <p>Site web personnel avec formulaire de contact</p>
-                <ul>
-                    <li>HTML/CSS/PHP/JavaScript</li>
-                    <li>Design responsive</li>
-                    <li>Note : 15.5/20</li>
-                </ul>
+                <h3>Prochainement...</h3>
             </div>
         </div>
     </div>
@@ -52,8 +36,6 @@
             navMenu.classList.toggle('active');
             hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
         });
-
-        // Fermer le menu quand on clique sur un lien
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
