@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const texts = [
-        { element: document.getElementById('name'), text: 'Etienne Veau' },
-        { element: document.getElementById('title'), text: 'Étudiant en B.U.T Informatique' }
+        { element: document.getElementById('presentation'), text: 'Etienne Veau -- Étudiant en B.U.T Informatique' },
     ];
 
     let currentText = 0;
