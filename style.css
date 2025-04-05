@@ -38,6 +38,9 @@ nav a:hover {
     color: #7e7e7e;
 }
 
+p {
+    text-align: justify;
+}
 
 .cadre_photo {
     display: flex;
@@ -52,7 +55,7 @@ nav a:hover {
 .cadre_photo .photo {
     width: 185px;
     height: 185px;
-    border-radius: 25%;
+    border-radius: 18%;
     border: 2px solid #8a8e91;
     object-fit: cover;
 }
