@@ -38,6 +38,40 @@ nav a:hover {
     color: #7e7e7e;
 }
 
+
+.cadre_photo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 2rem;
+    background-color: #484747;
+    border-radius: 5px;
+}
+
+.cadre_photo .photo {
+    width: 185px;
+    height: 185px;
+    border-radius: 25%;
+    border: 2px solid #8a8e91;
+    object-fit: cover;
+}
+
+.cadre_photo p {
+    flex: 1;
+    color: #e6e6e6;
+    font-size: 1rem;
+    line-height: 1.5;
+
+}
+
+.qualite {
+    margin: 1rem 0;
+    padding: 2rem;
+    background-color: #484747;
+    border-radius: 5px;
+}
+
 .container {
     max-width: 1000px;
     width: 100%;
@@ -62,13 +96,7 @@ nav a:hover {
     grid-template-columns: 1fr;
 }
 
-.qualite {
-    margin: 1rem 0;
-    padding: 2rem;
-    background-color: #484747;
-    border-radius: 5px;
 
-}
 
 
 .timeline-item {
