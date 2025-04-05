@@ -53,25 +53,76 @@
 
             </section>
 
+            <section class="card">
+                <h3>Mes Qualités :</h3>
+                <div class="qualite">
+                    <h4><b>Minutieux</b></h4>
+                    <p>Lors de mon expérience professionnelle en tant qu’agent de maintenance industriel, j’ai été
+                        chargé du montage, du démontage et de l’entretien de chaînes industrielles de plus de 20 mètres.
+                        Ces équipements étaient essentiels au fonctionnement d’une usine employant plus de 300
+                        personnes. Cette responsabilité exigeait une grande précision, chaque intervention devant
+                        garantir la sécurité et la performance de l’installation.Je suis donc capable de faire preuve
+                        d’une minutie exemplaire, un atout indispensable pour mener à bien les missions qui me seront
+                        confiées.
+                    </p>
+                </div>
+                <div class="qualite">
+                    <h4><b>Proactif</b></h4>
+                    <p>Lors de mon expérience en tant qu’aide-menuisier, j’ai travaillé sur un chantier d’envergure à la
+                        Cité Administrative de Toulouse. Dans ce contexte, j’ai été amené à collaborer avec un collègue
+                        menuisier atteint de surdité. Face à cette situation, j’ai assumé le rôle de représentant
+                        principal de l’entreprise, que ce soit lors de réunions de chantier ou dans les échanges avec
+                        les autres corps de métier.De plus, j’ai pris l’initiative de concevoir un gabarit adapté pour
+                        optimiser le travail, ce qui a permis de respecter les délais imposés tout en facilitant la
+                        collaboration. Cet engagement témoigne de ma capacité à anticiper les besoins, à prendre des
+                        initiatives et à agir efficacement dans des situations complexes.
+                    </p>
+                </div>
+                <div class="qualite">
+                    <h4><b>Curieux</b></h4>
+                    <p>Ma curiosité me pousse à aller au-delà des attentes, que ce soit dans mon travail ou mes
+                        apprentissages. Je m’efforce de toujours approfondir mes connaissances, notamment en recherchant
+                        des informations et du savoir faire complémentaires au cours de l’I.U.T afin d’y être plus
+                        complet et performant. Comme lors de la SAE sur la création d’un portfolio avec les langages de
+                        programmations HTML , CSS et PHP ou j’ai intégré un fond d’écran dynamique à mon site avec le
+                        langage JavaScript que nous n’avions pas encore étudié à ce moment la .Cette soif d’apprendre me
+                        permet de m’adapter rapidement à de nouveaux environnements et d’apporter une vraie valeur
+                        ajoutée à chaque projet auquel je contribue.
+                    </p>
+                </div>
+                <div class="qualite">
+                    <h4><b>Discret</b></h4>
+                    <p>Je suis une personne discrète, préférant me concentrer sur mon travail et mon entourage proche.
+                        Ma nature discrète et réservé se reflète
+                        dans ma manière d’interagir : je préserve la confidentialité d’informations sensibles, respecte
+                        les limites de chacun et maintiens un climat professionnel sérieux. Cette discrétion est un
+                        atout dans le cadre de relations de travail, où elle favorise un climat de confiance et de
+                        respect mutuel.
+                    </p>
+                </div>
+            </section>
 
 
-            <script>
-                const hamburger = document.querySelector('.hamburger');
-                const navMenu = document.querySelector('nav ul');
+        </div>
+    </div>
 
-                hamburger.addEventListener('click', () => {
-                    navMenu.classList.toggle('active');
-                    hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
-                });
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav ul');
 
-                document.querySelectorAll('nav a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navMenu.classList.remove('active');
-                        hamburger.setAttribute('aria-expanded', 'false');
-                    });
-                });
-            </script>
-            <script src="type.js"></script>
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
+        });
+
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
+    <script src="type.js"></script>
 </body>
 
 </html>
