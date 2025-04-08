@@ -7,12 +7,12 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     line-height: 1.6;
-    background-color: #1a1a1a;
-    color: #e6e6e6;
+    background-color: #020D19;
+    color: #f0f8ff;
 }
 
 nav {
-    background-color: #2d2d2d;
+    background-color: #011222;
     padding: 1rem;
     position: fixed;
     width: 100%;
@@ -28,14 +28,18 @@ nav ul {
 }
 
 nav a {
-    color: #e6e6e6;
+    color: #fbf7f9;
     text-decoration: none;
     padding: 0.5rem 1rem;
     transition: color 0.3s;
 }
 
 nav a:hover {
-    color: #7e7e7e;
+    color: #48577f;
+}
+
+.typewriter {
+    color: #d1d1ec;
 }
 
 p {
@@ -48,7 +52,7 @@ p {
     gap: 1rem;
     margin: 1rem 0;
     padding: 2rem;
-    background-color: #484747;
+    background-color: #02071a;
     border-radius: 5px;
 }
 
@@ -56,7 +60,8 @@ p {
     width: 185px;
     height: 185px;
     border-radius: 18%;
-    border: 2px solid #8a8e91;
+    border: 3px solid #000009;
+    box-shadow: #020D19;
     object-fit: cover;
 }
 
@@ -71,7 +76,7 @@ p {
 .qualite {
     margin: 1rem 0;
     padding: 2rem;
-    background-color: #484747;
+    background-color: #040818;
     border-radius: 5px;
 }
 
@@ -84,7 +89,7 @@ p {
 }
 
 .card {
-    background-color: #2d2d2d;
+    background-color: #040212;
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -104,7 +109,7 @@ p {
 
 .timeline-item {
     padding: 1.5rem;
-    border-left: 3px solid #8d9093;
+    border-left: 3px solid #082d51;
     margin-bottom: 2rem;
     position: relative;
 }
@@ -116,7 +121,7 @@ p {
     top: 0;
     width: 12px;
     height: 12px;
-    background: #8a8e91;
+    background: #0d2b42;
     border-radius: 50%;
 }
 
@@ -127,7 +132,7 @@ textarea {
     padding: 0.5rem;
     background-color: #333;
     border: 1px solid #444;
-    color: #fff;
+    color: #f0f8ff;
     border-radius: 4px;
 }
 
@@ -225,7 +230,7 @@ textarea {
 
 
 b {
-    color: #989494;
+    color: #729cea;
 }
 
 @keyframes blink {
