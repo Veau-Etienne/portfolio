@@ -186,6 +186,15 @@ textarea {
     background-color: #040212;
 }
 
+
+.stars {
+    color: #48577f;
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+}
+
+
+
 @media (max-width: 768px) {
     .cv-preview {
         padding: 1rem;
