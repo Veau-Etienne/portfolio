@@ -1,0 +1,163 @@
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+body {
+    position: relative;
+    top: 78px;
+    display: flex;
+    flex-direction: column;
+}
+
+body,
+html,
+article,
+section {
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+}
+
+
+.navbar {
+    background-color: #0000009a;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3;
+    height: 40px;
+}
+
+
+
+
+.liens-nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 60px;
+    position: relative;
+}
+
+.liens-nav a {
+    color: #00ff00;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s ease;
+}
+
+.liens-nav a:hover {
+    color: #3b9836;
+}
+
+.navbar .liens-nav .active {
+    text-decoration: underline;
+
+}
+
+.hidden {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px 0px;
+    background-color: #000000d3;
+    z-index: 5;
+}
+
+.hidden a {
+    cursor: pointer;
+    padding: 10px 0px;
+
+}
+
+.survol:hover .hidden {
+    display: flex;
+}
+
+
+section {
+    position: relative;
+    z-index: 1;
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    float: left;
+    background-color: rgba(0, 0, 0, 0.803);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.635),
+        0 6px 20px rgba(1, 250, 1, 0.535);
+
+}
+
+figure {
+    position: relative;
+    z-index: 1;
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.803);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.635),
+        0 6px 20px rgba(1, 250, 1, 0.535);
+}
+
+
+.pres {
+    display: flex;
+    padding: 10px;
+}
+
+
+body img {
+    width: 100%;
+    height: auto;
+}
+
+.pres .trombinoscope {
+    max-width: 40px;
+    height: 60px;
+    border-radius: 10%;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+
+a {
+    text-decoration: none;
+    color: #00ff0096;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+h1,
+h2 {
+    color: #12c012;
+    text-shadow: 0 0 10px #e3efe339, 0 0 20px #f3f7f35e;
+}
+
+h1 {
+    text-align: center;
+    color: #0d9d03;
+    margin-bottom: 30px;
+}
+
+footer {
+    background-color: #0000009a;
+    align-items: center;
+    width: 100%;
+    z-index: 3;
+    margin-top: 20px;
+}

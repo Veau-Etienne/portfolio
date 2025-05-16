@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>page image</title>
+    <link type="text/css" rel="stylesheet" href="page_image.css">
+</head>
+<canvas id="matrix"></canvas>
+<header>
+    <nav class="navbar">
+        <div class="pres">
+            <img src="photodemoi.jpg" alt="Photo de l'étudiant" class=" trombinoscope">
+            <h1>Veau Etienne</h1>
+        </div>
+        <div class="liens-nav">
+            <a href="mon-portfolio.html">Home</a>
+            <a href="Cursus_scolaire.html">Cursus scolaire</a>
+            <a href="table.html">Planning</a>
+            <div class="survol">
+                <div class="visible">
+                    <a href="#" class="active">Média</a>
+                </div>
+                <div class="hidden">
+                    <a href="page_image.html" class="active">Photo</a>
+                    <a href="page_vidéo.html">Vidéo</a>
+                </div>
+            </div>
+            <a href="index.php">Contact</a>
+        </div>
+    </nav>
+</header>
+
+<body>
+    <h1>Galerie d'Art Surréaliste</h1>
+    <section>
+        <figure>
+            <a href="IMG1.JPG" target="_blank">
+                <img src="IMG1.JPG" alt="Description de l'image 1">
+            </a>
+            <figcaption>La porte du désert</figcaption>
+        </figure>
+
+        <figure>
+            <a href="IMG2.JPG" target="_blank">
+                <img src="IMG2.JPG" alt="Description de l'image 2">
+            </a>
+            <figcaption>Le temps qui s'échappe</figcaption>
+        </figure>
+
+        <figure>
+            <a href="IMG3.JPG" target="_blank">
+                <img src="IMG3.JPG" alt="Description de l'image 3">
+            </a>
+            <figcaption>L'oeil dans l'oeuf</figcaption>
+        </figure>
+    </section>
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}';
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00';
+            ctx.font = `${fontSize}px monospace`;
+
+            drops.forEach((y, i) => {
+                const text = matrix[Math.floor(Math.random() * matrix.length)];
+                ctx.fillText(text, i * fontSize, y * fontSize);
+
+                if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            });
+        }
+
+        setInterval(drawMatrix, 50);
+
+
+        window.onresize = function () {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drops.length = Math.floor(canvas.width / fontSize);
+            drops.fill(1);
+        };
+    </script>
+</body>
+<footer>
+    <p>&copy; 2024 Mon portfolio. IUT Informatique 1 A. Groupe 4.</p>
+</footer>
+
+
+</html>

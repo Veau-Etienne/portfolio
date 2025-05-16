@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>page vidéo</title>
+    <link type="text/css" rel="stylesheet" href="page_video.css">
+</head>
+<header>
+    <nav class="navbar">
+        <div class="pres">
+            <img src="photodemoi.jpg" alt="Photo de l'étudiant" class=" trombinoscope">
+            <h1>Veau Etienne</h1>
+        </div>
+        <div class="liens-nav">
+            <a href="mon-portfolio.html">Home</a>
+            <a href="Cursus_scolaire.html">Cursus scolaire</a>
+            <a href="table.html">Planning</a>
+            <div class="survol">
+                <div class="visible">
+                    <a href="#" class="active">Média</a>
+                </div>
+                <div class="hidden">
+                    <a href="page_image.html">Photo</a>
+                    <a href="page_vidéo.html" class="active" Vidéo></a>
+                </div>
+            </div>
+            <a href="index.php">Contact</a>
+        </div>
+    </nav>
+</header>
+
+<body>
+    <canvas id="matrix"></canvas>
+    <div style="display: flex; align-items: flex-start; margin-top: 78px;">
+        <video width="640" height="360" controls autoplay muted>
+            <source src="BMW.mp4" type="video/mp4">
+        </video>
+
+        <section>
+            <article>
+                <h2>Présentation</h2>
+                <p>La BMW M8 Gran Coupé Competition xDrive est équipée d'un moteur longitudinal avant huit cylindres en
+                    V suralimenté développant un couple maximum de 750 Nm dès 1800 trs/min ainsi qu'une puissance
+                    maximum de 625 ch à 6000 trs/min transmise aux quatre roues de 20 pouces par le biais d'une boîte de
+                    vitesses automatique à 8 rapports.</p>
+            </article>
+        </section>
+    </div>
+
+
+
+
+
+</body>
+<footer>
+    <p>&copy; 2024 Mon portfolio. IUT Informatique 1 A. Groupe 4.</p>
+</footer>
+
+<script>
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const matrix = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}';
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#00ff00';
+        ctx.font = `${fontSize}px monospace`;
+
+        drops.forEach((y, i) => {
+            const text = matrix[Math.floor(Math.random() * matrix.length)];
+            ctx.fillText(text, i * fontSize, y * fontSize);
+
+            if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        });
+    }
+
+    setInterval(drawMatrix, 50);
+
+
+    window.onresize = function () {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        drops.length = Math.floor(canvas.width / fontSize);
+        drops.fill(1);
+    };
+</script>
+</body>
+
+</html>

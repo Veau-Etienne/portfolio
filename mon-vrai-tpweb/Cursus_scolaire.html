@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursus Scolaire</title>
+    <link type="text/css" rel="stylesheet" href="mon-portfolio.css">
+</head>
+
+<body>
+    <canvas id="matrix"></canvas>
+    <header>
+        <nav class="navbar">
+            <div class="pres">
+                <img src="photodemoi.jpg" alt="Photo de l'étudiant">
+                <h1>Veau Etienne</h1>
+            </div>
+            <div class="liens-nav">
+                <a href="mon-portfolio.html">Home</a>
+                <a href="Cursus_scolaire.html" class="active">Cursus scolaire</a>
+                <a href="table.html">Planning</a>
+                <div class="survol">
+                    <div class="visible">
+                        <a href="#">Média</a>
+                    </div>
+                    <div class="hidden">
+                        <a href="page_image.html">Photo</a>
+                        <a href="page_vidéo.html">Vidéo</a>
+                    </div>
+                </div>
+                <a href="index.php">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <div>
+        <article>
+            <h2>Mon Cursus Scolaire</h2>Lorem, ipsum dolor sit amet <strong> elementos</strong> consectetur
+            <em>ducere</em> adipisicing elit. Eius, eaque?
+
+        </article>
+        <div><a href="mon-portfolio.html">retour a l'accueil</a></div>
+        <header>
+            <nav class="navbar">
+                <div class="pres">
+                    <img src="photodemoi.jpg" alt="Photo de l'étudiant">
+                    <h1>Veau Etienne</h1>
+                </div>
+                <div class="liens-nav">
+                    <a href="mon-portfolio.html" class="active">Home</a>
+                    <a href="Cursus_scolaire.html">Cursus scolaire</a>
+                    <a href="table.html">Planning</a>
+                    <div class="survol">
+                        <div class="visible">
+                            <a href="#">Média</a>
+                        </div>
+                        <div class="hidden">
+                            <a href="page_image.html">Photo</a>
+                            <a href="page_vidéo.html">Vidéo</a>
+                        </div>
+                    </div>
+                    <a href="index.php">Contact</a>
+                </div>
+            </nav>
+        </header>
+
+    </div>
+
+
+    <footer>
+        <p>&copy; 2024 Mon portfolio. IUT Informatique 1 A. Groupe 4.</p>
+    </footer>
+
+
+
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}';
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00';
+            ctx.font = `${fontSize}px monospace`;
+
+            drops.forEach((y, i) => {
+                const text = matrix[Math.floor(Math.random() * matrix.length)];
+                ctx.fillText(text, i * fontSize, y * fontSize);
+
+                if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            });
+        }
+
+        setInterval(drawMatrix, 50);
+        window.onresize = function () {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drops.length = Math.floor(canvas.width / fontSize);
+            drops.fill(1);
+        };
+    </script>
+</body>
+
+</html>

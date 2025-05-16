@@ -105,7 +105,26 @@ p {
 }
 
 
+.timeline-item .header-content {
+    display: flex;
+    /* Utilise flexbox pour aligner le titre et l'image sur une ligne */
+    align-items: center;
+    /* Aligne verticalement l'image et le texte */
+    gap: 5rem;
+    /* Ajoute un espace entre le texte et l'image */
+}
 
+.timeline-item .header-content img {
+    width: 200px;
+    /* Largeur de l'image */
+    height: auto;
+    /* Conserve les proportions de l'image */
+    border-radius: 8px;
+    /* Coins arrondis */
+    object-fit: cover;
+    /* Assure un bon rendu de l'image */
+    z-index: -1;
+}
 
 .timeline-item {
     padding: 1.5rem;
@@ -123,6 +142,41 @@ p {
     height: 12px;
     background: #0d2b42;
     border-radius: 50%;
+}
+
+
+.logos-container {
+    margin: 1rem auto;
+    /* Centrer le rectangle */
+
+    background-color: #011222;
+    /* Couleur de fond similaire à votre thème */
+
+
+    display: flex;
+
+    justify-content: center;
+    /* Centrer les logos horizontalement */
+    align-items: center;
+
+    gap: 1rem;
+    /* Espacement entre les logos */
+}
+
+.logos-container::-webkit-scrollbar {
+    display: none;
+    /* Masquer la barre de défilement */
+}
+
+.logo {
+    width: 65px;
+    /* Taille des logos */
+    height: 65px;
+    /* Taille des logos */
+
+
+    object-fit: contain;
+    /* Ajuste l'image sans la déformer */
 }
 
 

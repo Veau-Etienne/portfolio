@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projets - Etienne Veau</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -14,12 +13,11 @@
         <ul>
             <li><a href="index.html">À propos</a></li>
             <li><a href="cursus.html">Cursus</a></li>
-            <li><a href="competences.html">Compétences</a></li>
-
+            <li><a href="competences.html">Compétences/Qualités</a></li>
             <li><a href="projets.html">Projets</a></li>
-            <li><a href="exppro.html">Expériences professionnel</a></li>
-
+            <li><a href="exppro.html">Expériences professionnelles</a></li>
             <li><a href="cv.html">Mon CV</a></li>
+            <li><a href="contact.html">Me Contacter</a></li>
         </ul>
         <button class="hamburger">☰</button>
     </nav>
@@ -29,102 +27,140 @@
 
         <div class="projets-grid">
             <div class="card projet">
-                <h3>Création d'une Base de Données (SQL)</h3>
-                <p><em><b>Projet d'étude</b></em></p>
-                <p><b>En C</b> (en trinôme) <br>
-                    Nous devions concevoir de A à Z une Base de Données correspondant à une entreprise de location. <br>
-                    Nous avons fait le choix de créer une entreprise louant des Jet-ski et avons mis en place un MCD/MLD
-                    avant de concevoir le script SQL permettant de créer et remplir notre bases de données avec un jeu
-                    d'essais. <br>
-                    <em>Ce projet m'a appris à appliquer concrètement mes connaissances SQL, le respect des 3 formes
-                        normales, la mise en place de vérification automatique des données afin d'assurer la robustesse
-                        de la base de données, ainsi que la création de jeu de données et de requête test pour vérifier
-                        son bon
-                        fonctionnement. <br> Dans ce projet la partie sur la création de l'entreprise m'a sensibilisé
-                        aux démarches RSE et m'a permis d'imaginer différentes facettes du fonctionnement d'une P.M.E.
-                    </em>
-
-
+                <h3>Exploitation d'une Base de Données – Projet OCTAVE</h3>
+                <p><b>Contexte :</b> Projet réalisé en trinôme à l'IUT.</p>
+                <p><b>Objectifs du projet :</b> Concevoir une étude de marché pour le lancement d'une plateforme fictive
+                    de streaming musical, en s'appuyant sur plusieurs jeux de données publics (issus de Kaggle).</p>
+                <p><b>Travail réalisé :</b> Nous avons choisi trois jeux de données portant sur les habitudes d'écoute
+                    de musique en ligne, les ventes par format et l'accès à Internet dans le monde. Après validation
+                    auprès de l'enseignant, nous avons conçu un modèle relationnel (MCD/MLD), puis créé un script Python
+                    pour construire et remplir notre base PostgreSQL. Nous avons également nettoyé les données
+                    (suppression des doublons, renommage, jointures) et produit des visualisations pertinentes
+                    (graphiques, heatmaps, histogrammes) afin d'extraire des tendances utiles à la stratégie de
+                    lancement d’OCTAVE.</p>
+                <p><b>Résultats du projet :</b> Ce projet m’a permis de développer des compétences concrètes en
+                    traitement de données massives, en modélisation relationnelle, en automatisation via
+                    Python/SQLAlchemy et en dataviz avec Matplotlib. Il m’a aussi sensibilisé à l’importance d’adapter
+                    une stratégie commerciale aux spécificités régionales (connexion internet, genre musical, âge, type
+                    d’abonnement).</p>
+                <p><b>Document :</b> <button onclick="window.open('rapport.pdf')">Voir le document</button></p>
+            </div>
+        </div>
+        <div class="projets-grid">
+            <div class="card projet">
+                <h3>Création d’un Portfolio Web</h3>
+                <p><b>Contexte :</b> Projet réalisé seul à l'IUT, visant à présenter nos
+                    compétences techniques sous forme de site web personnel.</p>
+                <p><b>Objectifs du projet :</b> Développer un portfolio web en utilisant HTML, CSS et PHP, permettant de
+                    valoriser mes projets, mon parcours et mes compétences, tout en respectant les bonnes pratiques du
+                    développement web.</p>
+                <p><b>Travail réalisé :</b> J’ai conçu une interface responsive en HTML/CSS, intégrant plusieurs
+                    sections (présentation,cursus,contact). En complément, je me suis autoformé
+                    les bases de Java afin d’ajouter un fond d’écran animé et interactif, apportant une touche dynamique
+                    à l’interface.</p>
+                <p><b>Résultats du projet :</b> Ce projet m’a permis d’approfondir mes compétences en développement web
+                    (HTML/CSS/PHP), d’améliorer ma capacité à mener un projet seul de bout en bout, et de découvrir les
+                    bases de la programmation en Java. Il m’a également sensibilisé à l’importance de l’UX/UI et à la
+                    cohérence graphique dans un site vitrine. j'ai obtenu la note de 16/20 pour mon travail la moyenne
+                    pour ma promo est de 14/20 </p>
+                <p><b>Site :</b> <a href="./mon-vrai-tpweb/mon-portfolio.html" target="_blank" class="btn">Voir le
+                        portfolio</a></p>
                 </p>
             </div>
         </div>
 
+
+        <!-- Projet 1 -->
+        <div class="projets-grid">
+            <div class="card projet">
+                <h3>Création d'une Base de Données (SQL)</h3>
+                <p><b>Contexte :</b> Projet d'étude en trinôme à l'IUT.</p>
+                <p><b>Objectifs du projet :</b> Concevoir de A à Z une base de données correspondant à une entreprise de
+                    location.</p>
+                <p><b>Travail réalisé :</b> Nous avons choisi de créer une entreprise louant des Jet-ski et avons mis en
+                    place un MCD/MLD avant de concevoir le script SQL permettant de créer et remplir notre base de
+                    données avec un jeu d'essais.</p>
+                <p><b>Résultats du projet :</b> Ce projet m'a appris à appliquer concrètement mes connaissances SQL, le
+                    respect des 3 formes normales, la mise en place de vérifications automatiques des données pour
+                    assurer la robustesse de la base, ainsi que la création de jeux de données et de requêtes tests pour
+                    vérifier son bon fonctionnement. Dans ce projet, la partie sur la création de l'entreprise m'a
+                    sensibilisé aux démarches RSE et m'a permis d'imaginer différentes facettes du fonctionnement d'une
+                    PME.</p>
+                <p><b>Document :</b> <button onclick="window.open('jetsky.pdf')">Voir le document</button></p>
+                </p>
+            </div>
+        </div>
+
+        <!-- Projet 2 -->
         <div class="projets-grid">
             <div class="card projet">
                 <h3>Administration d'un système Linux</h3>
-                <p><em><b>Projet d'étude</b></em></p>
-                <p><b>Shell</b> (seul) <br>
-                    Nous devions installer sur une machine vierge une distribution Debian,la configurer en installant
-                    des paquets et des systèmes, partitionner des disques ou encore la mise en place de Backports et
-                    l'utilisation de FlatPak <br>
-                    <em>Ce projet m'a permis de m'exercer en autonomie à la recherche d'information sur internet afin
-                        de comprendre et réaliser les tâches qui m'étaient demandées. <br> Je me suis également
-                        grandement
-                        familiariser avec l'utilisation du <b>terminal et ses lignes de commandes</b>. <br>
-                        Enfin cela m'a permis d'en apprendre plus sur le fonctionnement d'un espace disque et d'un
-                        système d'exploitation. </em>
+                <p><b>Contexte :</b> Projet d'étude individuel à l'IUT.</p>
+                <p><b>Objectifs du projet :</b> Installer sur une machine vierge une distribution Debian, la configurer
+                    en installant des paquets et des systèmes, partitionner des disques, et mettre en place des
+                    Backports et l'utilisation de FlatPak.</p>
+                <p><b>Travail réalisé :</b> Ce projet m'a permis de m'exercer en autonomie à la recherche d'informations
+                    sur internet afin de comprendre et réaliser les tâches demandées. Je me suis également grandement
+                    familiarisé avec l'utilisation du terminal et ses lignes de commandes. Enfin, cela m'a permis d'en
+                    apprendre plus sur le fonctionnement d'un espace disque et d'un système d'exploitation.</p>
+                <p><b>Document :</b> <button onclick="window.open('linux_administration.pdf')">Voir le document</button>
                 </p>
             </div>
         </div>
 
+        <!-- Projet 3 -->
         <div class="projets-grid">
             <div class="card projet">
-                <h3>Gestion des stages de l'I.U.T </h3>
-                <p><em><b>Projet d'étude</b></em></p>
-                <p><b>En C</b> (en binôme)<br>
-                    Nous devions concevoir un algorithme capable de traiter les demandes de stage de l'I.U.T . <br>
-                    Le programme devait pouvoir gérer l'espace "Responsable", capable d'affecter un étudiant à un stage
-                    sur lequel ils auraient préalablement candidater. Il y'a également un espace de saisie des notes
-                    ainsi
-                    que la possibilité de procéder à
-                    l'ajout de nouvelles offres de stage. L'espace "étudiant" permet à l'étudiant de consulter les
-                    stages
-                    disponibles ainsi que d'y candidater. </p><br>
-                <p><em>Ce projet m'a permis de me familiariser avec le language C et m'a appris a gérer des tableaux de
-                        manière
-                        efficace (<b>Chargement,Recherche,Trie,Affichage</b>). Cela m'a également permis d'utiliser
-                        différents types de fichiers afin d'effectuer des sauvegardes.</em></p>
+                <h3>Gestion des stages de l'I.U.T</h3>
+                <p><b>Contexte :</b> Projet d'étude en binôme à l'IUT.</p>
+                <p><b>Objectifs du projet :</b> Concevoir un algorithme capable de traiter les demandes de stage de
+                    l'IUT.</p>
+                <p><b>Travail réalisé :</b> Le programme devait pouvoir gérer l'espace "Responsable", capable d'affecter
+                    un étudiant à un stage sur lequel il aurait préalablement candidaté. Il y avait également un espace
+                    de saisie des notes ainsi que la possibilité de procéder à l'ajout de nouvelles offres de stage.
+                    L'espace "Étudiant" permettait à l'étudiant de consulter les stages disponibles ainsi que d'y
+                    candidater.</p>
+                <p><b>Résultats du projet :</b> Ce projet m'a permis de me familiariser avec le langage C et m'a appris
+                    à gérer des tableaux de manière efficace (Chargement, Recherche, Tri, Affichage). Cela m'a également
+                    permis d'utiliser différents types de fichiers afin d'effectuer des sauvegardes.</p>
+                <p><b>Document :</b> <button onclick="window.open('gestion_stages.pdf')">Voir le document</button></p>
             </div>
         </div>
 
+        <!-- Projet 4 -->
         <div class="projets-grid">
             <div class="card projet">
-                <h3>Création d'un jeu type tour par tour sur le principe du Pierre,Feuille,Ciseaux</h3>
-                <p><em><b>Projet d'étude</b></em></p>
-                <p><b>En C</b> (en binôme)<br>
-                    Nous devions concevoir un jeu de combat tour par tour entre un chevalier et des monstres. Le cahier
-                    des charges étant très complet, j'ai dû apporté un soin particulier au respect de l'utilisation des
-                    différentes structures.</p><br>
-                <p><em>Ce projet a renforcé ma <b>Compréhension</b> des différentes formes de structures
-                        <b>Pile,File,Liste</b> et donc <b>Maillon.</b>Cela m'a également servi de bonne Introduction à
-                        la notion de <b>Complexité</b> et l'utilsation de fichier binaire pour effectuer des
-                        sauvegardes.</em>
+                <h3>Création d'un jeu type tour par tour</h3>
+                <p><b>Contexte :</b> Projet d'étude en binôme à l'IUT.</p>
+                <p><b>Objectifs du projet :</b> Concevoir un jeu de combat tour par tour entre un chevalier et des
+                    monstres, basé sur le principe de Pierre-Feuille-Ciseaux.</p>
+                <p><b>Travail réalisé :</b> Le cahier des charges étant très complet, j'ai dû apporter un soin
+                    particulier au respect de l'utilisation des différentes structures (Pile, File, Liste). Ce projet a
+                    renforcé ma compréhension des structures de données et m'a introduit à la notion de complexité et à
+                    l'utilisation de fichiers binaires pour effectuer des sauvegardes.</p>
+                <p><b>Document :</b> <button onclick="window.open('jeu_tour_par_tour.pdf')">Voir le document</button>
                 </p>
             </div>
         </div>
 
+        <!-- Projet 5 -->
         <div class="projets-grid">
             <div class="card projet">
-                <h3>En Cours...</h3>
-                <h4>Conception d'une réplique de jeu vidéo et élaboration d'un algorithme capable de battre le Jeu</h4>
-                <p><em><b>Projet Personnel:</b> (depuis le 31 Janvier 2025)</em></p>
-                <p>Ce projet en cours de production vise à concevoir une réplique fidèle du jeu "Crossy Road" à l'aide
-                    du logiciel <b>UNITY</b>. Le jeu Crossy Road est un jeu d'arcade dont le but est de faire parcourir
-                    la plus longue distance à notre personnage à travers un parcours d'obstacles au thème urbain. <br>
-                    <em>Le projet consiste à reproduire fidèlement le jeu, puis à créer un algorithme en <b>C#</b>
-                        capable d'interagir avec le jeu afin qu'il soit imbattable. <br>
-                        Lorsque mon programme sera fonctionnel, je souhaite entraîner une I.A. capable de battre le jeu
-                        et par
-                        la suite comparer les deux solutions en analysant celle qui obtient le meilleur score.
-                        Ce projet personnel sera l'occasion de m'autoformer sur C# & UNITY, ainsi que de travailler sur
-                        l'élaboration d'un projet complexe. Il servira également d'introduction aux notions d'IA et
-                        de Robotique, des domaines de l'Informatique auxquels j'accorde un intérêt tout
-                        particulier.</em>
-
-                </p>
+                <h3>Conception d'une réplique de jeu vidéo</h3>
+                <p><b>Contexte :</b> Projet personnel depuis janvier 2025.</p>
+                <p><b>Objectifs du projet :</b> Reproduire le jeu "Crossy Road" avec Unity et concevoir un algorithme
+                    imbattable en C#.</p>
+                <p><b>Travail réalisé :</b> Ce projet consiste à reproduire fidèlement le jeu, puis à créer un
+                    algorithme en C# capable d'interagir avec le jeu afin qu'il soit imbattable. Une fois le programme
+                    fonctionnel, je souhaite entraîner une IA capable de battre le jeu et comparer les deux solutions
+                    pour analyser celle qui obtient le meilleur score.</p>
+                <p><b>Résultats du projet :</b> Ce projet m'a permis de m'autoformer sur Unity et C#, de travailler sur
+                    un projet complexe, et de m'introduire aux notions d'IA et de robotique.</p>
+                <p><b>Document :</b> <button onclick="window.open('crossy_road.pdf')">Voir le document</button></p>
             </div>
         </div>
     </div>
+
     <script>
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('nav ul');
@@ -133,6 +169,7 @@
             navMenu.classList.toggle('active');
             hamburger.setAttribute('aria-expanded', navMenu.classList.contains('active'));
         });
+
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
