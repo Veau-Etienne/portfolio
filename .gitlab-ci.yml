@@ -1,0 +1,40 @@
+stages:
+  - push
+  - deploy
+
+include:
+  - project: "IUT_INF63/generic-ci"
+    ref: "main"
+    file:
+      - "build/.docker-build.yml"
+      - "deploy/.docker-deploy.yml"
+
+build-portfolio-image:
+  extends: .build-and-push-docker-image
+  stage: push
+  variables:
+    DOCKERFILE_RELATIVE_PATH: "Dockerfile"
+    DOCKERFILE_CONTEXT_PATH: "."
+    DESTINATION_REGISTRY_IMAGE_NAME: "$CI_REGISTRY_IMAGE"
+    DESTINATION_REGISTRY_IMAGE_VERSION: "$CI_COMMIT_REF_SLUG"
+  allow_failure: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - when: manual
+
+deploy-portfolio:
+  extends: .deploy-image
+  stage: deploy
+  variables:
+    CONTAINER_NAME: "portfolio"
+    CONTAINER_IMAGE_PATH: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    CONTAINER_HTTP_PORT: "8080"
+    NAMESPACE_TOKEN: "$NAMESPACE_TOKEN"
+    NAMESPACE_NAME: "$K8S_NAMESPACE_NAME"
+    CONTAINER_ENV_VAR_PORT: "8080"
+    CONTAINER_ENV_VAR_HOSTNAME: "0.0.0.0"
+  allow_failure: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+    - when: never
