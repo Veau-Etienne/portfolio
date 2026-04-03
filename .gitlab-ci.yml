@@ -28,7 +28,7 @@ deploy-portfolio:
     CONTAINER_NAME: "portfolio"
     CONTAINER_IMAGE_PATH: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     CONTAINER_HTTP_PORT: "8080"
-    NAMESPACE_NAME: "iut-inf63-portfolio-2025-2026-2a"
+    APP_NAMESPACE: "iut-inf63-portfolio-2025-2026-2a"
     CONTAINER_ENV_VAR_PORT: "8080"
     CONTAINER_ENV_VAR_HOSTNAME: "0.0.0.0"
   script:
@@ -46,7 +46,7 @@ deploy-portfolio:
       contexts:
       - context:
           cluster: codefirst
-          namespace: ${NAMESPACE_NAME}
+          namespace: ${APP_NAMESPACE}
           user: deployer
         name: codefirst
       current-context: codefirst
@@ -62,7 +62,7 @@ deploy-portfolio:
       kind: Deployment
       metadata:
         name: ${CONTAINER_NAME}
-        namespace: ${NAMESPACE_NAME}
+        namespace: ${APP_NAMESPACE}
         labels:
           app: ${CONTAINER_NAME}
       spec:
@@ -105,7 +105,7 @@ deploy-portfolio:
       kind: Service
       metadata:
         name: ${CONTAINER_NAME}
-        namespace: ${NAMESPACE_NAME}
+        namespace: ${APP_NAMESPACE}
       spec:
         selector:
           app: ${CONTAINER_NAME}
@@ -121,7 +121,7 @@ deploy-portfolio:
       kind: Ingress
       metadata:
         name: ${CONTAINER_NAME}
-        namespace: ${NAMESPACE_NAME}
+        namespace: ${APP_NAMESPACE}
         annotations:
           nginx.ingress.kubernetes.io/use-regex: "true"
           nginx.ingress.kubernetes.io/rewrite-target: /\$2
@@ -130,20 +130,17 @@ deploy-portfolio:
           - http:
               paths:
                 - pathType: ImplementationSpecific
-                  path: "/${NAMESPACE_NAME}/${CONTAINER_NAME}(/|$)(.*)"
+                  path: "/${APP_NAMESPACE}/${CONTAINER_NAME}(/|$)(.*)"
                   backend:
                     service:
                       name: ${CONTAINER_NAME}
                       port:
                         number: ${CONTAINER_HTTP_PORT}
       EOF
-    - kubectl delete ingress "${CONTAINER_NAME}" --ignore-not-found=true -n "${NAMESPACE_NAME}"
-    - kubectl delete service "${CONTAINER_NAME}" --ignore-not-found=true -n "${NAMESPACE_NAME}"
-    - kubectl delete deployment "${CONTAINER_NAME}" --ignore-not-found=true -n "${NAMESPACE_NAME}"
     - kubectl apply -f output/deployment.yml
     - kubectl apply -f output/service.yml
     - kubectl apply -f output/ingress.yml
-    - kubectl rollout status deployment/"${CONTAINER_NAME}" -n "${NAMESPACE_NAME}" --timeout=180s
+    - kubectl rollout status deployment/"${CONTAINER_NAME}" -n "${APP_NAMESPACE}" --timeout=180s
   artifacts:
     paths:
       - output/*
