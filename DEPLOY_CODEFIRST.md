@@ -32,7 +32,7 @@
 Dans `Settings` > `CI/CD` > `Variables`, ajouter :
 
 - `NAMESPACE_TOKEN` : token du namespace Kubernetes CodeFirst
-- `K8S_NAMESPACE_NAME` : nom exact du namespace Kubernetes
+- `NAMESPACE_NAME` : nom exact du namespace Kubernetes
 
 ## Pipeline
 
