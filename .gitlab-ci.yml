@@ -1,54 +1,168 @@
 stages:
-  - \uD83C\uDFD7️build
-  - \uD83E\uDDEAtests
-  - \uD83D\uDCE6push
-  - \uD83D\uDE80deploy
+  - push
+  - deploy
 
 include:
-  - project: 'iut_inf63/generic-ci' # Reference to the gitlab project containing the generic ci scripts
-    ref: 'main' # Reference to the gitlab ci generic project branch
+  - project: "IUT_INF63/generic-ci"
+    ref: "main"
     file:
-      - 'build/.docker-build.yml' # Name of the file to include 
-      - 'deploy/.docker-deploy.yml' # Name of the file to include 
+      - "build/.docker-build.yml"
 
-tests-sonar:
-  stage: \uD83E\uDDEAtests
-  image: codefirst.iut.uca.fr/iut_inf63/base-cicd/java21-slim:main
-  variables:
-    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
-    GIT_DEPTH: "0"
-  cache:
-    key: "${CI_JOB_NAME}"
-    paths:
-      - .sonar/cache
-  script:
-    - echo "\uD83D\uDD0D Lancement analyse SonarQube"
-    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.host.url="$SONAR_HOST" -Dsonar.login="$SONAR_TOKEN" -Dsonar.projectKey="$CI_PROJECT_NAMESPACE:$CI_PROJECT_NAME" -Dsonar.projectName="$CI_PROJECT_NAME" -Dsonar.projectVersion="$CI_COMMIT_SHORT_SHA" -Dsonar.sources=. -Dsonar.sourceEncoding=UTF-8
-    - echo "✅ Analyse terminee"
-  allow_failure: true
-
-push-image:
+build-portfolio-image:
   extends: .build-and-push-docker-image
-  stage: \uD83D\uDCE6push
-  variables: 
-    DOCKERFILE_RELATIVE_PATH: docker/Dockerfile
-    DOCKERFILE_CONTEXT_PATH: .
-    DESTINATION_REGISTRY_IMAGE_NAME: codefirst.iut.uca.fr/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
-    DESTINATION_REGISTRY_IMAGE_VERSION: main
-  allow_failure: true
-  when: on_success
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
-
-deploy-image:
-  extends: .deploy-image
-  stage: \uD83D\uDE80deploy
+  stage: push
   variables:
-    CONTAINER_NAME: $CI_PROJECT_NAME
-    CONTAINER_HTTP_PORT: 80
-    CONTAINER_IMAGE_PATH: codefirst.iut.uca.fr/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:main
-    NAMESPACE_TOKEN: $KUBE_NAMESPACE_TOKEN
-    NAMESPACE_NAME: iut-inf63-portfolio-2025-2026-2a
+    DOCKERFILE_RELATIVE_PATH: "Dockerfile"
+    DOCKERFILE_CONTEXT_PATH: "."
+    DESTINATION_REGISTRY_IMAGE_NAME: "$CI_REGISTRY_IMAGE"
+    DESTINATION_REGISTRY_IMAGE_VERSION: "$CI_COMMIT_REF_SLUG"
   allow_failure: true
-  needs:
-    - push-image
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - when: manual
+
+deploy-portfolio:
+  image: "$CI_REGISTRY/iut_inf63/base-cicd/kube-deploy:1.1.0"
+  stage: deploy
+  variables:
+    CONTAINER_NAME: "portfolio"
+    CONTAINER_IMAGE_PATH: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    CONTAINER_HTTP_PORT: "8080"
+    APP_NAMESPACE: "iut-inf63-portfolio-2025-2026-2a"
+    CONTAINER_ENV_VAR_PORT: "8080"
+    CONTAINER_ENV_VAR_HOSTNAME: "0.0.0.0"
+  script:
+    - mkdir -p output kube/secrets
+    - echo "$KUBE_CA_CRT_B64" | base64 -d > kube/secrets/ca.crt
+    - export DEPLOY_TOKEN="${KUBE_NAMESPACE_TOKEN:-$NAMESPACE_TOKEN}"
+    - '[ -n "$DEPLOY_TOKEN" ] || (echo "Missing KUBE_NAMESPACE_TOKEN or NAMESPACE_TOKEN" && exit 1)'
+    - |
+      cat > kube/config <<EOF
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - cluster:
+          certificate-authority: ${CI_PROJECT_DIR}/kube/secrets/ca.crt
+          server: ${K8S_SERVER_ADDRESS}
+        name: codefirst
+      contexts:
+      - context:
+          cluster: codefirst
+          namespace: ${APP_NAMESPACE}
+          user: deployer
+        name: codefirst
+      current-context: codefirst
+      users:
+      - name: deployer
+        user:
+          token: ${DEPLOY_TOKEN}
+      EOF
+    - export KUBECONFIG="${CI_PROJECT_DIR}/kube/config"
+    - |
+      cat > output/deployment.yml <<EOF
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: ${CONTAINER_NAME}
+        namespace: ${APP_NAMESPACE}
+        labels:
+          app: ${CONTAINER_NAME}
+      spec:
+        replicas: 1
+        strategy:
+          type: RollingUpdate
+        selector:
+          matchLabels:
+            app: ${CONTAINER_NAME}
+        template:
+          metadata:
+            labels:
+              app: ${CONTAINER_NAME}
+          spec:
+            containers:
+              - name: ${CONTAINER_NAME}
+                image: ${CONTAINER_IMAGE_PATH}
+                imagePullPolicy: Always
+                env:
+                  - name: PORT
+                    value: "${CONTAINER_ENV_VAR_PORT}"
+                  - name: HOSTNAME
+                    value: "${CONTAINER_ENV_VAR_HOSTNAME}"
+                ports:
+                  - name: http-port
+                    protocol: TCP
+                    containerPort: ${CONTAINER_HTTP_PORT}
+                resources:
+                  requests:
+                    cpu: "0.01"
+                    memory: "200M"
+                  limits:
+                    cpu: "0.20"
+                    memory: "400M"
+            terminationGracePeriodSeconds: 30
+      EOF
+    - |
+      cat > output/service.yml <<EOF
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: ${CONTAINER_NAME}
+        namespace: ${APP_NAMESPACE}
+      spec:
+        selector:
+          app: ${CONTAINER_NAME}
+        ports:
+          - name: http
+            protocol: TCP
+            port: ${CONTAINER_HTTP_PORT}
+            targetPort: http-port
+      EOF
+    - |
+      cat > output/ingress.yml <<EOF
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: ${CONTAINER_NAME}
+        namespace: ${APP_NAMESPACE}
+        annotations:
+          nginx.ingress.kubernetes.io/use-regex: "true"
+          nginx.ingress.kubernetes.io/rewrite-target: /\$2
+      spec:
+        rules:
+          - http:
+              paths:
+                - pathType: ImplementationSpecific
+                  path: "/${APP_NAMESPACE}/${CONTAINER_NAME}(/|$)(.*)"
+                  backend:
+                    service:
+                      name: ${CONTAINER_NAME}
+                      port:
+                        number: ${CONTAINER_HTTP_PORT}
+      EOF
+    - kubectl apply -f output/deployment.yml
+    - kubectl apply -f output/service.yml
+    - kubectl apply -f output/ingress.yml
+    - kubectl get deployment,replicaset,pod,service,ingress -n "${APP_NAMESPACE}"
+    - |
+      if ! kubectl rollout status deployment/"${CONTAINER_NAME}" -n "${APP_NAMESPACE}" --timeout=600s; then
+        echo "Rollout failed, collecting diagnostics..."
+        kubectl get deployment,replicaset,pod,service,ingress -n "${APP_NAMESPACE}" -o wide || true
+        kubectl describe deployment "${CONTAINER_NAME}" -n "${APP_NAMESPACE}" || true
+        kubectl get pods -n "${APP_NAMESPACE}" --sort-by=.metadata.creationTimestamp || true
+        POD_NAME="$(kubectl get pods -n "${APP_NAMESPACE}" -l app="${CONTAINER_NAME}" -o jsonpath='{.items[-1:].metadata.name}' 2>/dev/null || true)"
+        if [ -n "$POD_NAME" ]; then
+          kubectl describe pod "$POD_NAME" -n "${APP_NAMESPACE}" || true
+          kubectl logs "$POD_NAME" -n "${APP_NAMESPACE}" --all-containers=true || true
+          kubectl logs "$POD_NAME" -n "${APP_NAMESPACE}" --previous --all-containers=true || true
+        fi
+        exit 1
+      fi
+  artifacts:
+    paths:
+      - output/*
+      - kube/*
+  allow_failure: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+    - when: never
