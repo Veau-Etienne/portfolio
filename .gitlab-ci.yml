@@ -83,6 +83,10 @@ deploy-portfolio:
           metadata:
             labels:
               app: ${CONTAINER_NAME}
+            annotations:
+              deploy_commit_sha: "${CI_COMMIT_SHA}"
+              deploy_job_url: "${CI_JOB_URL}"
+              deploy_started_at: "${CI_JOB_STARTED_AT}"
           spec:
             containers:
               - name: ${CONTAINER_NAME}
