@@ -25,7 +25,7 @@ deploy-portfolio:
   image: "$CI_REGISTRY/iut_inf63/base-cicd/kube-deploy:1.1.0"
   stage: deploy
   variables:
-    CONTAINER_NAME: "portfolio"
+    CONTAINER_NAME: "etveau-portfolio"
     CONTAINER_IMAGE_PATH: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     CONTAINER_HTTP_PORT: "8080"
     APP_NAMESPACE: "iut-inf63-portfolio-2025-2026-2a"
@@ -95,10 +95,10 @@ deploy-portfolio:
                 resources:
                   requests:
                     cpu: "0.01"
-                    memory: "200M"
+                    memory: "64M"
                   limits:
-                    cpu: "0.20"
-                    memory: "400M"
+                    cpu: "0.10"
+                    memory: "128M"
             terminationGracePeriodSeconds: 30
       EOF
     - |
