@@ -135,7 +135,7 @@ deploy-portfolio:
         namespace: ${TARGET_NAMESPACE}
         annotations:
           nginx.ingress.kubernetes.io/use-regex: "true"
-          nginx.ingress.kubernetes.io/rewrite-target: /\$2
+          nginx.ingress.kubernetes.io/rewrite-target: /kubernetes/${TARGET_NAMESPACE}/${CONTAINER_NAME}/\$2
       spec:
         rules:
           - http:
