@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { withBasePath } from "@/lib/base-path";
 
 const stack = [
   { label: "PHP / MVC / Twig", color: "from-emerald-500/20 to-emerald-500/5" },
@@ -34,7 +35,7 @@ const academicProjects = [
     tag: "Base de données et datavisualisation",
     desc: "Étude de marché pour une plateforme de streaming musical à partir de trois datasets, avec modélisation, alimentation PostgreSQL en Python / SQLAlchemy et recommandations appuyées sur des graphiques Matplotlib.",
     techs: ["PostgreSQL", "Python", "SQLAlchemy", "Matplotlib"],
-    href: "/docs/octave-rapport.pdf",
+    href: withBasePath("/docs/octave-rapport.pdf"),
     cta: "Ouvrir le rapport",
   },
   {
@@ -42,7 +43,7 @@ const academicProjects = [
     tag: "Comparaison d'approches algorithmiques",
     desc: "Projet Python centré sur la mesure et la comparaison de tris et de recherches selon la taille des données, avec visualisation des performances et mise en perspective dans le cadre d'une SAE orientée algorithmique.",
     techs: ["Python", "Algorithmique", "Mesures", "Matplotlib"],
-    href: "/docs/algo-benchmark-sujet.pdf",
+    href: withBasePath("/docs/algo-benchmark-sujet.pdf"),
     cta: "Voir le sujet",
   },
 ];
@@ -53,7 +54,7 @@ const personalProjects = [
     tag: "Projet perso front-end",
     desc: "Reprise personnelle du jeu 2048 en HTML, CSS et JavaScript avec grille 4x4, score en temps réel, nouvelle partie, animations de fusion et contrôles clavier.",
     techs: ["HTML", "CSS", "JavaScript"],
-    href: "/projects/2048/index.html",
+    href: withBasePath("/projects/2048/index.html"),
     cta: "Jouer",
     kind: "2048" as const,
     status: "Jeu navigateur",
@@ -117,7 +118,7 @@ function PersonalProjectPreview({ kind }: { kind: "2048" | "quantedge" }) {
   return (
     <div className="relative aspect-[16/10] overflow-hidden rounded-[1.45rem] border border-white/[0.08] bg-[#141311]">
       <Image
-        src="/projects/quantedge-dashboard.png"
+        src={withBasePath("/projects/quantedge-dashboard.png")}
         alt="Capture du dashboard QuantEdge"
         fill
         sizes="(min-width: 1280px) 40vw, 100vw"

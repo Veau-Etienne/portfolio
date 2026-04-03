@@ -14,6 +14,7 @@ import {
     Wrench,
 } from "lucide-react";
 import { motion, useInView } from "framer-motion";
+import { withBasePath } from "@/lib/base-path";
 
 type MediaItem = {
     label: string;
@@ -77,7 +78,7 @@ const items: Exp[] = [
             { title: "Conducteur de ligne", bullets: ["Anticipation, autonomie, optimisation des délais et des objectifs."] },
         ],
         tags: ["Production", "Maintenance", "Qualité", "Sécurité"],
-        media: [{ label: "Aperçu", videoSrc: "/media/jeldwen.mp4" }],
+        media: [{ label: "Aperçu", videoSrc: withBasePath("/media/jeldwen.mp4") }],
         mediaAspect: "portrait",
     },
     {
@@ -89,8 +90,8 @@ const items: Exp[] = [
         ],
         tags: ["Maintenance", "Installation", "Organisation"],
         media: [
-            { label: "Clip 1", videoSrc: "/media/scierie-1.mp4" },
-            { label: "Clip 2", videoSrc: "/media/scierie-2.mp4" },
+            { label: "Clip 1", videoSrc: withBasePath("/media/scierie-1.mp4") },
+            { label: "Clip 2", videoSrc: withBasePath("/media/scierie-2.mp4") },
         ],
     },
     {
@@ -102,7 +103,7 @@ const items: Exp[] = [
             { title: "Agent électricien", bullets: ["Installation et maintenance électrique.", "Éclairage intérieur et extérieur en zone industrielle."] },
         ],
         tags: ["Électricité", "Chantier", "Fiabilité"],
-        media: [{ label: "Aperçu", videoSrc: "/media/ctaze.mp4" }],
+        media: [{ label: "Aperçu", videoSrc: withBasePath("/media/ctaze.mp4") }],
         mediaAspect: "portrait",
     },
     {
@@ -114,7 +115,7 @@ const items: Exp[] = [
             { title: "Employé de grande surface", bullets: ["Gestion rayons, réassort, stocks.", "Accueil et conseil client.", "Tenue de caisse."] },
         ],
         tags: ["Relation client", "Rigueur", "Polyvalence"],
-        media: [{ label: "Aperçu", imageSrc: "/media/leclerc.jpg" }],
+        media: [{ label: "Aperçu", imageSrc: withBasePath("/media/leclerc.jpg") }],
     },
     {
         company: "McDonald’s",
@@ -125,7 +126,7 @@ const items: Exp[] = [
             { title: "Équipier", bullets: ["Prise de commandes et service.", "Formation des nouveaux.", "Hygiène et procédures."] },
         ],
         tags: ["Service", "Équipe", "Procédures"],
-        media: [{ label: "Aperçu", imageSrc: "/media/mcd.jpg" }],
+        media: [{ label: "Aperçu", imageSrc: withBasePath("/media/mcd.jpg") }],
     },
 ];
 

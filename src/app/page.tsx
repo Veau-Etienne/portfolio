@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail, Download } from "lucide-react";
+import { withBasePath } from "@/lib/base-path";
 
 const heroBadges = [
   { label: "Web & Mobile" },
@@ -137,7 +138,7 @@ export default function Home() {
                 Me contacter
               </Link>
               <a
-                href="/cv.pdf"
+                href={withBasePath("/cv.pdf")}
                 download
                 className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.04] px-5 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-slate-400 transition hover:border-white/[0.2] hover:text-slate-200"
               >
@@ -153,7 +154,7 @@ export default function Home() {
             <div className="relative flex flex-col gap-4">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.25rem] border border-white/[0.10] bg-slate-950">
                 <Image
-                  src="/profile/etienne-home.png"
+                  src={withBasePath("/profile/etienne-home.png")}
                   alt="Portrait d'Etienne Veau"
                   fill
                   priority

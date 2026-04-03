@@ -13,6 +13,7 @@ import {
   Server,
   Smartphone,
 } from "lucide-react";
+import { withBasePath } from "@/lib/base-path";
 
 const badges = ["Projet d'équipe", "Client réel", "Scrum lite", "Web + API + Mobile"];
 
@@ -57,7 +58,7 @@ const gallery = [
     title: "Accueil Jardinageons",
     description:
       "Vue d'ensemble du produit avec aperçu du jardin, conseils mensuels et rappels d'arrosage.",
-    src: "/projects/jardinageons/accueil.svg",
+    src: withBasePath("/projects/jardinageons/accueil.svg"),
     alt: "Maquette d'accueil Jardinageons",
     className: "lg:col-span-7",
     imageClassName: "object-contain bg-[#07110c] p-5",
@@ -67,7 +68,7 @@ const gallery = [
     title: "Plan du potager",
     description:
       "Visualisation du plan de culture avec textures, parcelles et repartition des legumes.",
-    src: "/projects/jardinageons/potager.svg",
+    src: withBasePath("/projects/jardinageons/potager.svg"),
     alt: "Maquette du plan de potager Jardinageons",
     className: "lg:col-span-5",
     imageClassName: "object-contain bg-[#07110c] p-5",
@@ -77,7 +78,7 @@ const gallery = [
     title: "Dashboard",
     description:
       "Page d'accueil avec conseils du mois, rappel d'arrosage et apercu du jardin selectionne.",
-    src: "/projects/jardinageons/web-accueil-dashboard.png",
+    src: withBasePath("/projects/jardinageons/web-accueil-dashboard.png"),
     alt: "Capture du tableau de bord web Jardinageons",
     className: "lg:col-span-6",
     imageClassName: "object-cover object-top",
@@ -87,7 +88,7 @@ const gallery = [
     title: "Editeur de potager",
     description:
       "Canevas interactif pour dessiner les parcelles, changer les textures et positionner les legumes.",
-    src: "/projects/jardinageons/web-plan-potager.png",
+    src: withBasePath("/projects/jardinageons/web-plan-potager.png"),
     alt: "Capture de l'editeur de potager Jardinageons",
     className: "lg:col-span-6",
     imageClassName: "object-cover object-top",
@@ -97,7 +98,7 @@ const gallery = [
     title: "Stock de graines",
     description:
       "Catalogue relie au legume associe, avec quantite, date de peremption et operations de gestion.",
-    src: "/projects/jardinageons/web-stock-graines.png",
+    src: withBasePath("/projects/jardinageons/web-stock-graines.png"),
     alt: "Capture de la gestion du stock de graines Jardinageons",
     className: "lg:col-span-6",
     imageClassName: "object-cover object-top",
@@ -107,7 +108,7 @@ const gallery = [
     title: "Fiches legumes",
     description:
       "Base de connaissance avec periodes de semis, recolte, germination et description de culture.",
-    src: "/projects/jardinageons/web-fiches-legumes.png",
+    src: withBasePath("/projects/jardinageons/web-fiches-legumes.png"),
     alt: "Capture des fiches legumes Jardinageons",
     className: "lg:col-span-6",
     imageClassName: "object-cover object-top",
@@ -117,7 +118,7 @@ const gallery = [
     title: "Inventaire et fiches",
     description:
       "Vue mobile de l'inventaire de graines et du catalogue des legumes, avec recherche, synthese et acces rapide aux fiches.",
-    src: "/projects/jardinageons/mobile-inventaire-fiches.png",
+    src: withBasePath("/projects/jardinageons/mobile-inventaire-fiches.png"),
     alt: "Captures mobiles Jardinageons avec inventaire et fiches legumes",
     className: "lg:col-span-6",
     imageClassName: "object-contain bg-[#0b110d] p-4",
@@ -127,7 +128,7 @@ const gallery = [
     title: "Meteo et statistiques",
     description:
       "Ecrans mobiles dedies au contexte du jardin avec meteo en direct, rappels d'arrosage et statistiques de repartition des graines.",
-    src: "/projects/jardinageons/mobile-meteo-stats.png",
+    src: withBasePath("/projects/jardinageons/mobile-meteo-stats.png"),
     alt: "Captures mobiles Jardinageons avec meteo et statistiques",
     className: "lg:col-span-6",
     imageClassName: "object-contain bg-[#0b110d] p-4",
@@ -321,7 +322,7 @@ export default function JardinageonsProjectPage() {
                   <div className="flex items-center gap-4">
                     <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-[1.25rem] border border-white/[0.10] bg-white/90">
                       <Image
-                        src="/projects/jardinageons/mobile-app-icon.png"
+                        src={withBasePath("/projects/jardinageons/mobile-app-icon.png")}
                         alt="Icone mobile Jardinageons"
                         fill
                         sizes="80px"

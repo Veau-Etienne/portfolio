@@ -16,6 +16,7 @@ build-portfolio-image:
     DOCKERFILE_CONTEXT_PATH: "."
     DESTINATION_REGISTRY_IMAGE_NAME: "$CI_REGISTRY_IMAGE"
     DESTINATION_REGISTRY_IMAGE_VERSION: "$CI_COMMIT_REF_SLUG"
+    KANIKO_EXTRA_OPTIONS: "--build-arg NEXT_PUBLIC_BASE_PATH=/kubernetes/iut-inf63-portfolio-2025-2026-2a/etveau-portfolio"
   allow_failure: true
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

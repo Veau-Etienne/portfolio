@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, Linkedin, Github, ArrowUpRight, Download } from "lucide-react";
+import { withBasePath } from "@/lib/base-path";
 
 const contacts = [
   {
@@ -112,7 +113,7 @@ export default function ContactPage() {
           </div>
 
           <a
-            href="/cv.pdf"
+            href={withBasePath("/cv.pdf")}
             download
             className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.22em] text-slate-950 transition hover:-translate-y-0.5"
           >
