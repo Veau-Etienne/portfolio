@@ -35,7 +35,8 @@ deploy-portfolio:
     - mkdir -p output kube/secrets
     - echo "$KUBE_CA_CRT_B64" | base64 -d > kube/secrets/ca.crt
     - export DEPLOY_TOKEN="${KUBE_NAMESPACE_TOKEN:-$NAMESPACE_TOKEN}"
-    - export TARGET_NAMESPACE="${K8S_NAMESPACE_NAME:-${NAMESPACE_NAME:-$DEFAULT_APP_NAMESPACE}}"
+    - export TARGET_NAMESPACE_RAW="${K8S_NAMESPACE_NAME:-${NAMESPACE_NAME:-$DEFAULT_APP_NAMESPACE}}"
+    - export TARGET_NAMESPACE="$(printf '%s' "$TARGET_NAMESPACE_RAW" | tr -d '\r\n')"
     - '[ -n "$DEPLOY_TOKEN" ] || (echo "Missing KUBE_NAMESPACE_TOKEN or NAMESPACE_TOKEN" && exit 1)'
     - '[ -n "$TARGET_NAMESPACE" ] || (echo "Missing K8S_NAMESPACE_NAME or NAMESPACE_NAME" && exit 1)'
     - |
