@@ -28,14 +28,16 @@ deploy-portfolio:
     CONTAINER_NAME: "etveau-portfolio"
     CONTAINER_IMAGE_PATH: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     CONTAINER_HTTP_PORT: "8080"
-    APP_NAMESPACE: "iut-inf63-portfolio-2025-2026-2a"
+    DEFAULT_APP_NAMESPACE: "iut-inf63-portfolio-2025-2026-2a"
     CONTAINER_ENV_VAR_PORT: "8080"
     CONTAINER_ENV_VAR_HOSTNAME: "0.0.0.0"
   script:
     - mkdir -p output kube/secrets
     - echo "$KUBE_CA_CRT_B64" | base64 -d > kube/secrets/ca.crt
     - export DEPLOY_TOKEN="${KUBE_NAMESPACE_TOKEN:-$NAMESPACE_TOKEN}"
+    - export TARGET_NAMESPACE="${K8S_NAMESPACE_NAME:-${NAMESPACE_NAME:-$DEFAULT_APP_NAMESPACE}}"
     - '[ -n "$DEPLOY_TOKEN" ] || (echo "Missing KUBE_NAMESPACE_TOKEN or NAMESPACE_TOKEN" && exit 1)'
+    - '[ -n "$TARGET_NAMESPACE" ] || (echo "Missing K8S_NAMESPACE_NAME or NAMESPACE_NAME" && exit 1)'
     - |
       cat > kube/config <<EOF
       apiVersion: v1
@@ -48,7 +50,7 @@ deploy-portfolio:
       contexts:
       - context:
           cluster: codefirst
-          namespace: ${APP_NAMESPACE}
+          namespace: ${TARGET_NAMESPACE}
           user: deployer
         name: codefirst
       current-context: codefirst
@@ -64,7 +66,7 @@ deploy-portfolio:
       kind: Deployment
       metadata:
         name: ${CONTAINER_NAME}
-        namespace: ${APP_NAMESPACE}
+        namespace: ${TARGET_NAMESPACE}
         labels:
           app: ${CONTAINER_NAME}
       spec:
@@ -107,7 +109,7 @@ deploy-portfolio:
       kind: Service
       metadata:
         name: ${CONTAINER_NAME}
-        namespace: ${APP_NAMESPACE}
+        namespace: ${TARGET_NAMESPACE}
       spec:
         selector:
           app: ${CONTAINER_NAME}
@@ -123,7 +125,7 @@ deploy-portfolio:
       kind: Ingress
       metadata:
         name: ${CONTAINER_NAME}
-        namespace: ${APP_NAMESPACE}
+        namespace: ${TARGET_NAMESPACE}
         annotations:
           nginx.ingress.kubernetes.io/use-regex: "true"
           nginx.ingress.kubernetes.io/rewrite-target: /\$2
@@ -132,7 +134,7 @@ deploy-portfolio:
           - http:
               paths:
                 - pathType: ImplementationSpecific
-                  path: "/${APP_NAMESPACE}/${CONTAINER_NAME}(/|$)(.*)"
+                  path: "/${TARGET_NAMESPACE}/${CONTAINER_NAME}(/|$)(.*)"
                   backend:
                     service:
                       name: ${CONTAINER_NAME}
@@ -142,23 +144,23 @@ deploy-portfolio:
     - kubectl apply -f output/deployment.yml
     - kubectl apply -f output/service.yml
     - kubectl apply -f output/ingress.yml
-    - kubectl get deployment,pod,service,ingress -n "${APP_NAMESPACE}" || true
+    - kubectl get deployment,pod,service,ingress -n "${TARGET_NAMESPACE}" || true
     - |
-      if ! kubectl rollout status deployment/"${CONTAINER_NAME}" -n "${APP_NAMESPACE}" --timeout=600s; then
+      if ! kubectl rollout status deployment/"${CONTAINER_NAME}" -n "${TARGET_NAMESPACE}" --timeout=600s; then
         echo "Rollout failed, collecting diagnostics..."
-        kubectl get deployment,pod,service,ingress -n "${APP_NAMESPACE}" -o wide || true
-        kubectl describe deployment "${CONTAINER_NAME}" -n "${APP_NAMESPACE}" || true
-        kubectl get pods -n "${APP_NAMESPACE}" --sort-by=.metadata.creationTimestamp || true
-        POD_NAME="$(kubectl get pods -n "${APP_NAMESPACE}" -l app="${CONTAINER_NAME}" -o jsonpath='{.items[-1:].metadata.name}' 2>/dev/null || true)"
-        AVAILABLE_REPLICAS="$(kubectl get deployment "${CONTAINER_NAME}" -n "${APP_NAMESPACE}" -o jsonpath='{.status.availableReplicas}' 2>/dev/null || echo 0)"
+        kubectl get deployment,pod,service,ingress -n "${TARGET_NAMESPACE}" -o wide || true
+        kubectl describe deployment "${CONTAINER_NAME}" -n "${TARGET_NAMESPACE}" || true
+        kubectl get pods -n "${TARGET_NAMESPACE}" --sort-by=.metadata.creationTimestamp || true
+        POD_NAME="$(kubectl get pods -n "${TARGET_NAMESPACE}" -l app="${CONTAINER_NAME}" -o jsonpath='{.items[-1:].metadata.name}' 2>/dev/null || true)"
+        AVAILABLE_REPLICAS="$(kubectl get deployment "${CONTAINER_NAME}" -n "${TARGET_NAMESPACE}" -o jsonpath='{.status.availableReplicas}' 2>/dev/null || echo 0)"
         if [ "${AVAILABLE_REPLICAS:-0}" -ge 1 ]; then
           echo "Deployment already has ${AVAILABLE_REPLICAS} available replica(s), treating rollout as successful."
           exit 0
         fi
         if [ -n "$POD_NAME" ]; then
-          kubectl describe pod "$POD_NAME" -n "${APP_NAMESPACE}" || true
-          kubectl logs "$POD_NAME" -n "${APP_NAMESPACE}" --all-containers=true || true
-          kubectl logs "$POD_NAME" -n "${APP_NAMESPACE}" --previous --all-containers=true || true
+          kubectl describe pod "$POD_NAME" -n "${TARGET_NAMESPACE}" || true
+          kubectl logs "$POD_NAME" -n "${TARGET_NAMESPACE}" --all-containers=true || true
+          kubectl logs "$POD_NAME" -n "${TARGET_NAMESPACE}" --previous --all-containers=true || true
         fi
         exit 1
       fi
