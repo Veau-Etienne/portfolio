@@ -7,7 +7,6 @@ include:
     ref: "main"
     file:
       - "build/.docker-build.yml"
-      - "deploy/.docker-deploy.yml"
 
 build-portfolio-image:
   extends: .build-and-push-docker-image
@@ -23,7 +22,7 @@ build-portfolio-image:
     - when: manual
 
 deploy-portfolio:
-  extends: .deploy-image
+  image: "$CI_REGISTRY/iut_inf63/base-cicd/kube-deploy:1.1.0"
   stage: deploy
   variables:
     CONTAINER_NAME: "portfolio"
@@ -32,6 +31,123 @@ deploy-portfolio:
     NAMESPACE_NAME: "iut-inf63-portfolio-2025-2026-2a"
     CONTAINER_ENV_VAR_PORT: "8080"
     CONTAINER_ENV_VAR_HOSTNAME: "0.0.0.0"
+  script:
+    - mkdir -p output kube/secrets
+    - echo "$KUBE_CA_CRT_B64" | base64 -d > kube/secrets/ca.crt
+    - |
+      cat > kube/config <<EOF
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - cluster:
+          certificate-authority: ${CI_PROJECT_DIR}/kube/secrets/ca.crt
+          server: ${K8S_SERVER_ADDRESS}
+        name: codefirst
+      contexts:
+      - context:
+          cluster: codefirst
+          namespace: ${NAMESPACE_NAME}
+          user: deployer
+        name: codefirst
+      current-context: codefirst
+      users:
+      - name: deployer
+        user:
+          token: ${NAMESPACE_TOKEN}
+      EOF
+    - export KUBECONFIG="${CI_PROJECT_DIR}/kube/config"
+    - |
+      cat > output/deployment.yml <<EOF
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: ${CONTAINER_NAME}
+        namespace: ${NAMESPACE_NAME}
+        labels:
+          app: ${CONTAINER_NAME}
+      spec:
+        replicas: 1
+        strategy:
+          type: RollingUpdate
+        selector:
+          matchLabels:
+            app: ${CONTAINER_NAME}
+        template:
+          metadata:
+            labels:
+              app: ${CONTAINER_NAME}
+          spec:
+            containers:
+              - name: ${CONTAINER_NAME}
+                image: ${CONTAINER_IMAGE_PATH}
+                imagePullPolicy: Always
+                env:
+                  - name: PORT
+                    value: "${CONTAINER_ENV_VAR_PORT}"
+                  - name: HOSTNAME
+                    value: "${CONTAINER_ENV_VAR_HOSTNAME}"
+                ports:
+                  - name: http-port
+                    protocol: TCP
+                    containerPort: ${CONTAINER_HTTP_PORT}
+                resources:
+                  requests:
+                    cpu: "0.01"
+                    memory: "200M"
+                  limits:
+                    cpu: "0.20"
+                    memory: "400M"
+            terminationGracePeriodSeconds: 30
+      EOF
+    - |
+      cat > output/service.yml <<EOF
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: ${CONTAINER_NAME}
+        namespace: ${NAMESPACE_NAME}
+      spec:
+        selector:
+          app: ${CONTAINER_NAME}
+        ports:
+          - name: http
+            protocol: TCP
+            port: ${CONTAINER_HTTP_PORT}
+            targetPort: http-port
+      EOF
+    - |
+      cat > output/ingress.yml <<EOF
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: ${CONTAINER_NAME}
+        namespace: ${NAMESPACE_NAME}
+        annotations:
+          nginx.ingress.kubernetes.io/use-regex: "true"
+          nginx.ingress.kubernetes.io/rewrite-target: /\$2
+      spec:
+        rules:
+          - http:
+              paths:
+                - pathType: ImplementationSpecific
+                  path: "/${NAMESPACE_NAME}/${CONTAINER_NAME}(/|$)(.*)"
+                  backend:
+                    service:
+                      name: ${CONTAINER_NAME}
+                      port:
+                        number: ${CONTAINER_HTTP_PORT}
+      EOF
+    - kubectl delete ingress "${CONTAINER_NAME}" --ignore-not-found=true -n "${NAMESPACE_NAME}"
+    - kubectl delete service "${CONTAINER_NAME}" --ignore-not-found=true -n "${NAMESPACE_NAME}"
+    - kubectl delete deployment "${CONTAINER_NAME}" --ignore-not-found=true -n "${NAMESPACE_NAME}"
+    - kubectl apply -f output/deployment.yml
+    - kubectl apply -f output/service.yml
+    - kubectl apply -f output/ingress.yml
+    - kubectl rollout status deployment/"${CONTAINER_NAME}" -n "${NAMESPACE_NAME}" --timeout=180s
+  artifacts:
+    paths:
+      - output/*
+      - kube/*
   allow_failure: true
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
