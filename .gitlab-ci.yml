@@ -135,20 +135,20 @@ deploy-portfolio:
         namespace: ${TARGET_NAMESPACE}
         annotations:
           nginx.ingress.kubernetes.io/use-regex: "true"
-          nginx.ingress.kubernetes.io/rewrite-target: /kubernetes/${TARGET_NAMESPACE}/${CONTAINER_NAME}/\$2
+          nginx.ingress.kubernetes.io/rewrite-target: /kubernetes/${TARGET_NAMESPACE}/${CONTAINER_NAME}\$1
       spec:
         rules:
           - http:
               paths:
                 - pathType: ImplementationSpecific
-                  path: "/${TARGET_NAMESPACE}/${CONTAINER_NAME}(/|$)(.*)"
+                  path: "/${TARGET_NAMESPACE}/${CONTAINER_NAME}(/.*|$)"
                   backend:
                     service:
                       name: ${CONTAINER_NAME}
                       port:
                         number: ${CONTAINER_HTTP_PORT}
                 - pathType: ImplementationSpecific
-                  path: "/containers/${PUBLIC_ROUTE_SLUG}(/|$)(.*)"
+                  path: "/containers/${PUBLIC_ROUTE_SLUG}(/.*|$)"
                   backend:
                     service:
                       name: ${CONTAINER_NAME}
