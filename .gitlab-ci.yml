@@ -142,7 +142,21 @@ deploy-portfolio:
     - kubectl apply -f output/deployment.yml
     - kubectl apply -f output/service.yml
     - kubectl apply -f output/ingress.yml
-    - kubectl rollout status deployment/"${CONTAINER_NAME}" -n "${APP_NAMESPACE}" --timeout=180s
+    - kubectl get deployment,replicaset,pod,service,ingress -n "${APP_NAMESPACE}"
+    - |
+      if ! kubectl rollout status deployment/"${CONTAINER_NAME}" -n "${APP_NAMESPACE}" --timeout=600s; then
+        echo "Rollout failed, collecting diagnostics..."
+        kubectl get deployment,replicaset,pod,service,ingress -n "${APP_NAMESPACE}" -o wide || true
+        kubectl describe deployment "${CONTAINER_NAME}" -n "${APP_NAMESPACE}" || true
+        kubectl get pods -n "${APP_NAMESPACE}" --sort-by=.metadata.creationTimestamp || true
+        POD_NAME="$(kubectl get pods -n "${APP_NAMESPACE}" -l app="${CONTAINER_NAME}" -o jsonpath='{.items[-1:].metadata.name}' 2>/dev/null || true)"
+        if [ -n "$POD_NAME" ]; then
+          kubectl describe pod "$POD_NAME" -n "${APP_NAMESPACE}" || true
+          kubectl logs "$POD_NAME" -n "${APP_NAMESPACE}" --all-containers=true || true
+          kubectl logs "$POD_NAME" -n "${APP_NAMESPACE}" --previous --all-containers=true || true
+        fi
+        exit 1
+      fi
   artifacts:
     paths:
       - output/*
