@@ -29,6 +29,7 @@ deploy-portfolio:
     CONTAINER_NAME: "portfolio"
     CONTAINER_IMAGE_PATH: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     CONTAINER_HTTP_PORT: "8080"
+    NAMESPACE_NAME: "iut-inf63-portfolio-2025-2026-2a"
     CONTAINER_ENV_VAR_PORT: "8080"
     CONTAINER_ENV_VAR_HOSTNAME: "0.0.0.0"
   allow_failure: true

@@ -32,7 +32,8 @@
 Dans `Settings` > `CI/CD` > `Variables`, ajouter :
 
 - `NAMESPACE_TOKEN` : token du namespace Kubernetes CodeFirst
-- `NAMESPACE_NAME` : nom exact du namespace Kubernetes
+
+Le nom du namespace est deja renseigne dans `.gitlab-ci.yml`.
 
 ## Pipeline
 
