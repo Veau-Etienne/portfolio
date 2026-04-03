@@ -34,6 +34,8 @@ deploy-portfolio:
   script:
     - mkdir -p output kube/secrets
     - echo "$KUBE_CA_CRT_B64" | base64 -d > kube/secrets/ca.crt
+    - export DEPLOY_TOKEN="${KUBE_NAMESPACE_TOKEN:-$NAMESPACE_TOKEN}"
+    - '[ -n "$DEPLOY_TOKEN" ] || (echo "Missing KUBE_NAMESPACE_TOKEN or NAMESPACE_TOKEN" && exit 1)'
     - |
       cat > kube/config <<EOF
       apiVersion: v1
@@ -53,7 +55,7 @@ deploy-portfolio:
       users:
       - name: deployer
         user:
-          token: ${NAMESPACE_TOKEN}
+          token: ${DEPLOY_TOKEN}
       EOF
     - export KUBECONFIG="${CI_PROJECT_DIR}/kube/config"
     - |
