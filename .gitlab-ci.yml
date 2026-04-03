@@ -75,7 +75,7 @@ deploy-portfolio:
       spec:
         replicas: 1
         strategy:
-          type: RollingUpdate
+          type: Recreate
         selector:
           matchLabels:
             app: ${CONTAINER_NAME}
