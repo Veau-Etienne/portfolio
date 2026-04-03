@@ -37,6 +37,7 @@ deploy-portfolio:
     - export DEPLOY_TOKEN="${KUBE_NAMESPACE_TOKEN:-$NAMESPACE_TOKEN}"
     - export TARGET_NAMESPACE_RAW="${K8S_NAMESPACE_NAME:-${NAMESPACE_NAME:-$DEFAULT_APP_NAMESPACE}}"
     - export TARGET_NAMESPACE="$(printf '%s' "$TARGET_NAMESPACE_RAW" | tr -d '\r\n')"
+    - export PUBLIC_ROUTE_SLUG="${CI_PROJECT_PATH_SLUG:-$CONTAINER_NAME}"
     - '[ -n "$DEPLOY_TOKEN" ] || (echo "Missing KUBE_NAMESPACE_TOKEN or NAMESPACE_TOKEN" && exit 1)'
     - '[ -n "$TARGET_NAMESPACE" ] || (echo "Missing K8S_NAMESPACE_NAME or NAMESPACE_NAME" && exit 1)'
     - |
@@ -136,6 +137,13 @@ deploy-portfolio:
               paths:
                 - pathType: ImplementationSpecific
                   path: "/${TARGET_NAMESPACE}/${CONTAINER_NAME}(/|$)(.*)"
+                  backend:
+                    service:
+                      name: ${CONTAINER_NAME}
+                      port:
+                        number: ${CONTAINER_HTTP_PORT}
+                - pathType: ImplementationSpecific
+                  path: "/containers/${PUBLIC_ROUTE_SLUG}(/|$)(.*)"
                   backend:
                     service:
                       name: ${CONTAINER_NAME}
