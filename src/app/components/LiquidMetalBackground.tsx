@@ -26,10 +26,10 @@ const float SCALE = 1.0;
 const float AX = 5.0, AY = 7.0, AZ = 9.0, AW = 13.0;
 const float BX = 1.0, BY = 1.0;
 
-const vec3 COLOR1 = vec3(0.60, 0.6, 0.60);
-const vec3 COLOR2 = vec3(0.0, 0.0, 0.0);
-const vec3 COLOR3 = vec3(0.0, 0.0, 0.0);
-const vec3 COLOR4 = vec3(0.0, 0.0, 0.0);
+const vec3 COLOR1 = vec3(0.0431, 0.0431, 0.4000);
+const vec3 COLOR2 = vec3(0.4706, 0.2510, 0.5686);
+const vec3 COLOR3 = vec3(0.0118, 0.1020, 0.2745);
+const vec3 COLOR4 = vec3(0.0510, 0.3059, 0.9294);
 
 float cheapNoise(vec3 stp) {
   vec3 p = vec3(stp.st, stp.p);
@@ -126,5 +126,11 @@ export default function LiquidMetalBackground() {
     };
   }, []);
 
-  return <div ref={hostRef} className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true" />;
+  return (
+    <div
+      ref={hostRef}
+      className="fixed inset-0 z-0 pointer-events-none opacity-[0.85]"
+      aria-hidden="true"
+    />
+  );
 }

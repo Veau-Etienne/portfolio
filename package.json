@@ -1,10 +1,11 @@
 {
-  "name": "frontend",
+  "name": "portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:github": "GITHUB_PAGES=true NEXT_PUBLIC_BASE_PATH=/portfolio next build",
     "dev:turbo": "next dev --turbopack",
     "build:turbo": "next build --turbopack",
     "start": "next start",
